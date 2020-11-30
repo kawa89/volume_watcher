@@ -52,8 +52,10 @@
         NSLog(@"arguments = %@", dic);
         
         // 获取系统音量
-        AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-        float currentVol = audioSession.outputVolume;
+        [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient error:nil];
+        [[AVAudioSession sharedInstance] setActive:YES error:nil];
+        float currentVol = [AVAudioSession sharedInstance].outputVolume;
+        [[AVAudioSession sharedInstance] setActive:NO error:nil];
         result(@(currentVol));
     } else if ([@"setVolume" isEqualToString:call.method]) {
         @autoreleasepool {
